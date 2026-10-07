@@ -1,0 +1,58 @@
+@font-face{font-family:"Uni Sans Heavy Caps";src:local("Uni Sans Heavy Caps"),url("fonts/UniSansHeavyCaps.woff2") format("woff2");font-weight:100 900;font-display:swap}
+:root{--y:#FFFF00;--u:min(1vw,1.78vh)}
+@media(max-aspect-ratio:1/1){:root{--u:min(2.2vw,1.2vh)}}
+html,body{width:100%;height:100%;cursor:none;margin:0;padding:0;background:black;overflow:hidden}
+*{font-family:"Uni Sans Heavy Caps",Inter,Impact,sans-serif;font-weight:800;text-transform:uppercase;box-sizing:border-box}
+a{cursor:none}
+
+/* cursor (position + hover scale driven by app.js) */
+.cursor{pointer-events:none;position:fixed;top:0;left:0;padding:.3rem;margin:-.3rem 0 0 -.3rem;background-color:yellow;border-radius:50%;mix-blend-mode:difference;opacity:0;scale:1;transition:scale .3s ease,opacity .3s;z-index:99}
+.cursor.live{opacity:1}
+.cursor.hot{scale:8}
+@media(hover:none){.cursor{display:none}html,body,a{cursor:auto}}
+
+/* hub */
+.mainpage{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2vh}
+.mainpage img{height:auto;max-width:min(405px,40vh)}
+nav{display:flex;flex-direction:column;align-items:center;gap:1.2vh;text-align:center;padding:0 1rem}
+.link{text-decoration:none}
+.link span{display:inline-block;color:yellow;font-size:clamp(16px,2.6vw,36px);transition:transform .1s linear}
+.link:hover span{transform:scale(1.1)}
+
+/* loader */
+.loader{position:fixed;top:0;left:0;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;background:black;transition:opacity .75s,visibility .75s;z-index:100}
+.loader--hidden{opacity:0;visibility:hidden}
+.loader::after{content:"";width:75px;height:75px;border:15px solid #000000;border-top-color:#FFFF00;border-radius:50%;animation:loading .75s ease infinite}
+@keyframes loading{from{transform:rotate(0turn)}to{transform:rotate(1turn)}}
+
+/* deck engine */
+.deck{position:fixed;inset:0}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:calc(var(--u)*5) calc(var(--u)*8) calc(var(--u)*7);opacity:0;visibility:hidden;transform:translateX(5%);transition:opacity .5s,transform .5s,visibility .5s}
+.slide.on{opacity:1;visibility:visible;transform:none}
+.slide.past{transform:translateX(-5%)}
+@media(prefers-reduced-motion:reduce){.slide,.slide.past{transform:none;transition:opacity .2s,visibility .2s}}
+h1,h2{margin:0;color:var(--y);line-height:.95}
+h1{font-size:calc(var(--u)*7.5)}
+h2{font-size:calc(var(--u)*5);margin-bottom:calc(var(--u)*3)}
+.tag{color:#fff;opacity:.7;font-size:calc(var(--u)*1.4);letter-spacing:.2em;margin:0 0 calc(var(--u)*2)}
+p,li{color:#fff;font-size:calc(var(--u)*2.2);line-height:1.25;margin:0;letter-spacing:.02em}
+b{color:var(--y)}
+.rule{width:calc(var(--u)*14);height:calc(var(--u)*1.2);background:var(--y);margin:calc(var(--u)*3) 0}
+ul{list-style:none;padding:0;margin:0;display:grid;gap:calc(var(--u)*1.8)}
+li{border-left:calc(var(--u)*.5) solid var(--y);padding-left:calc(var(--u)*1.6)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*5);align-items:center}
+svg{width:100%;height:auto;max-height:calc(var(--u)*45);overflow:visible}
+svg text{fill:#fff;font-size:15px;letter-spacing:.1em}
+.ax{stroke:#fff;stroke-width:3;fill:none}
+.cv{stroke:var(--y);stroke-width:5;fill:none}
+.ds{stroke-dasharray:10 8}
+.eq{font-size:calc(var(--u)*9);margin-bottom:calc(var(--u)*4)}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:calc(var(--u)*2)}
+.cell{border:calc(var(--u)*.3) solid var(--y);padding:calc(var(--u)*2);box-shadow:calc(var(--u)*.8) calc(var(--u)*.8) 0 var(--y);display:grid;gap:calc(var(--u)*1)}
+.cell b{font-size:calc(var(--u)*5);line-height:1}
+.cell p{font-size:calc(var(--u)*1.7)}
+.cell p:nth-of-type(2){opacity:.75;font-size:calc(var(--u)*1.4)}
+.hud{position:fixed;right:calc(var(--u)*3);bottom:calc(var(--u)*2.5);color:#fff;opacity:.7;font-size:calc(var(--u)*1.4);letter-spacing:.2em}
+.progress{position:fixed;left:0;right:0;bottom:0;height:6px}
+.progress i{display:block;height:100%;width:0;background:#FFFF00;transition:width .4s ease}
+@media(max-aspect-ratio:1/1){.cols,.grid4{grid-template-columns:1fr}.eq{font-size:calc(var(--u)*7)}}
